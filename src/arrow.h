@@ -18,7 +18,7 @@ int alloc_m;
 }txn;
 typedef txn* harrow;
 harrow initi_harrow(int amount);
-void act_parrow(harrow to,int stN,int enN);
+int act_parrow(harrow to,int stN,int enN);
 void free_harrow(harrow tbfree);
 arrows initi_arrows(int amount);
 void free_arrows(arrows tbfree,int amount);

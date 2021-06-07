@@ -7,6 +7,7 @@
 
 holo_node findNodesFF(FILE *pf){
     if(pf ==NULL){
+        printf("exit 2\n");
         exit(1);
     }
     char* buff = malloc(sizeof(char)*1024);
@@ -15,12 +16,14 @@ holo_node findNodesFF(FILE *pf){
     if(t==NULL){
         fclose(pf);
         free(buff);
+        printf("exit 3\n");
         exit(1);
     }
     int status = strncmp(buff, "digraph ",8);
     if(status!=0){
         fclose(pf);
         free(buff);
+        printf("exit 4\n");
         exit(1);
     }
     //find the last index of  char list buff and  saved in i;
@@ -28,12 +31,14 @@ holo_node findNodesFF(FILE *pf){
     while( *(buff+i)!='\n'){
         i++;
     }
+    //printf("i is %d\n",i);
     //tmp_i used to manipulate the char list;
     int tmp_i = i-1;
     char tc = *(buff+tmp_i);
     if(tc!='{'){
         fclose(pf);
         free(buff);
+        printf("exit 5\n");
         exit(1);
     }
     tmp_i = tmp_i -1;
@@ -41,6 +46,7 @@ holo_node findNodesFF(FILE *pf){
         if(tc!=' '){
         fclose(pf);
         free(buff);
+        printf("exit 6\n");
         exit(1);
     }
     // to the first Character of Name +8
@@ -49,13 +55,15 @@ holo_node findNodesFF(FILE *pf){
     int l_be_cpy = i - 10;
     char name[512];
     memcpy(name, loc , l_be_cpy);
-    printf("%s\n",name);
+    name[l_be_cpy] = '\0';
+    //printf("%s\n",name);
     fseek(pf, -2, SEEK_END);
     char a = '0';
     fscanf(pf,"%c ",&a);
     if(a!='}'){
         fclose(pf);
         free(buff);
+        printf("exit 7\n");
         exit(1);
     }
     //return to the start point of file pf
@@ -67,7 +75,7 @@ holo_node findNodesFF(FILE *pf){
         ixt++;
     }
     ixt = ixt*2;
-    printf("%d \n",ixt);
+    //printf("%d \n",ixt);
         //initialize the holistic graph data structure;
     holo_node qj = initi_h_node(ixt, name);
     //ixt approximate amount
@@ -82,25 +90,26 @@ holo_node findNodesFF(FILE *pf){
     //sscanf(buff,"%s -> %s;",t1,t2);
     //printf("%s -> %s\n",t1,t2);
     while(t!=NULL){
+        int scs = strncmp(buff,"}\n", 2);
+                if(scs==0){
+            //printf("Break Here1\n");
+            break;
+        }
         for(int i=0;i<1024;i++){
             if(*(buff+i) == ';'){
                 *(buff+i) = ' ';
             }
         }
-        printf("buff is %s\n",buff);
-        int scs = strncmp(buff,"}\n", 2);
-        if(scs==0){
-            printf("Break Here1\n");
-            break;
-        }
+        //printf("buff is %s\n",buff);
         int sc = sscanf(buff,"%s -> %s",t1,t2);
-        printf("t1 is %s+\n",t1);
-        printf("t2 is %s+\n",t2);
+        //printf("t1 is %s+\n",t1);
+        //printf("t2 is %s+\n",t2);
         if(sc!=2){
-            printf("Break Here\n");
+            //printf("Break Here\n");
             fclose(pf);
             free_h_node(qj);
             free(buff);
+            printf("exit 8\n");
             exit(1);
         
         }
@@ -108,9 +117,9 @@ holo_node findNodesFF(FILE *pf){
         int add_nb = 124;
         for(int v=0;v<qj->use_m;v++){
             p_node vb = qj->nf + v;
-            printf("use_m is %d vb->name is %s++++ t1 is %s++++ \n",qj->use_m,vb->name,t1);
+            //printf("use_m is %d vb->name is %s++++ t1 is %s++++ \n",qj->use_m,vb->name,t1);
             int scc = strcmp(vb->name, t1);
-            printf("scc is %d \n",scc);
+            //printf("scc is %d t1\n",scc);
             //printf("use_m is %d vb->name is %s t1 is %s \n",qj->use_m,vb->name,t1);
             if(scc == 0){
                 add_nt = 198;
@@ -121,13 +130,15 @@ holo_node findNodesFF(FILE *pf){
         p_node ls = malloc(sizeof(node));
         init_p_node(t1,qj->use_m+1,ls);
         add_h_p(ls,qj);
+        }else{
+               //printf("%s->%s  t1\n",t1,t2);
         }
-        printf("use_m adding is %d \n",qj->use_m);
+        //printf("use_m adding is %d \n",qj->use_m);
         for(int v=0;v<qj->use_m;v++){
             p_node vb = qj->nf + v;
-            printf("use_m is %d vb->name is %s t2 is %s \n",qj->use_m,vb->name,t2);
+            //printf("use_m is %d vb->name is %s t2 is %s \n",qj->use_m,vb->name,t2);
             int scc = strcmp(vb->name, t2);
-            printf("scc is %d \n",scc);
+            //printf("scc is %d t2\n",scc);
             if(scc == 0){
                 add_nb = 198;
             }
@@ -138,20 +149,23 @@ holo_node findNodesFF(FILE *pf){
         init_p_node(t2,qj->use_m+1,lb);
         add_h_p(lb,qj);
         }
-        printf("use_m adding is %d \n",qj->use_m);
+        else {
+        //printf("%s->%s  t2\n",t1,t2);
+        }
+        //printf("use_m adding is %d \n",qj->use_m);
         t = fgets(buff, 1024, pf);
     }
     
-    printf("qj->use_m is %d \n",qj->use_m);
+    //printf("qj->use_m is %d \n",qj->use_m);
     ini_2_a(qj);
-        for(int i=0;i<qj->use_m;i++){
+        /*for(int i=0;i<qj->use_m;i++){
         p_node tes =  get_i_p_node(1+i, qj);
        printf("tes-> name is %s \n" , tes->name);
        printf("tes->no is %d\n",tes->no);
        printf("tes->isUsed is %d \n", tes->isUsed);
-    }
-    int x = returnNodeNo("K", qj);
-    printf("%d is x+\n",x);
+    }*/
+    //int x = returnNodeNo("K", qj);
+    //printf("%d is x+\n",x);
     /*
        p_node tes =  get_i_p_node(1, qj);
        printf("tes-> name is %s \n" , tes->name);
@@ -178,7 +192,7 @@ harrow fhaoww(FILE *pf, holo_node hx){
     while(t!=NULL){
     int scs = strncmp(buff,"}\n", 2);
     if(scs==0){
-            printf("Break Here1\n");
+            //printf("Break Here1\n");
             break;
     }
     for(int i=0;i<1024;i++){
@@ -187,21 +201,26 @@ harrow fhaoww(FILE *pf, holo_node hx){
             }
     }
     sscanf(buff,"%s -> %s;",t3,t4);
-    printf("+++%s -> %s in harrow+++\n ",t3,t4);
+    //printf("+++%s -> %s in harrow+++\n ",t3,t4);
 
     int t3n = returnNodeNo(t3, hx);
     int t4n = returnNodeNo(t4, hx);
-    printf("+++%d->%d is  in harrow line %d i+++\n",t3n,t4n,i);
+    //printf("+++%d->%d is  in harrow line %d i+++\n",t3n,t4n,i);
     p_node p1 = get_i_p_node(t3n, hx);
     p_node p2 = get_i_p_node(t4n, hx);
-    act_parrow(re, t3n, t4n);
-    sAdd(t3n, p2);
-    eAdd(t4n, p1);
+    int sp =  act_parrow(re, t3n, t4n);
+    if(sp ==-7){
+    sAdd(t3n, p2,1);
+    eAdd(t4n, p1,1);
+    }else{
+    sAdd(t3n, p2,0);
+    eAdd(t4n, p1,0);
+    }
     t = fgets(buff,1024,pf);
     i = i+1;
     }
 
-    for(int l=0;l<hx->use_m;l++){
+    /*for(int l=0;l<hx->use_m;l++){
         p_node tmp = hx->nf+l;
         int a = tmp->e_length;
         int b = tmp->s_length;
@@ -209,15 +228,17 @@ harrow fhaoww(FILE *pf, holo_node hx){
         for(int q=0;q<a;q++){
             int tp = *(tmp->endWith + q);
             printf("%d +++q is %d\n",tp,q);
-        }   
+        }
+          
         printf("\n");
         
         for(int j=0;j<b;j++){
             int tp = *(tmp->starWith + j);
             printf("%d +++j is %d\n",tp,j);
         }
-    }
-    for(int h=0;h<re->use_m;h++){
+        
+    }*/
+    /*for(int h=0;h<re->use_m;h++){
         arrowp tmph = re->mp+h;
         int a = tmph->sNo;
         int b = tmph->eNo;
@@ -226,7 +247,8 @@ harrow fhaoww(FILE *pf, holo_node hx){
     char* s_name = s->name;
     char* e_name = e->name;
     printf("%s -> %s ++\n",s_name,e_name);
-    }
+    }*/
+    
 
     free(buff);
     return re;

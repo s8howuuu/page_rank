@@ -24,7 +24,7 @@ void free_harrow(harrow tbfree){
     free_arrows(tbfree->mp, tbfree->alloc_m);
     free(tbfree);
 }
-void act_parrow(harrow to,int stN, int enN){
+int act_parrow(harrow to,int stN, int enN){
     int stus = -10;
     for(int i=0;i<to->use_m;i++){
         int x = -5;
@@ -42,6 +42,7 @@ void act_parrow(harrow to,int stN, int enN){
             stus = -9;
         }
     }
+    
     if(stus ==-10){
     int cs = to->use_m;
     arrowp tmp = to->mp + cs;
@@ -49,6 +50,13 @@ void act_parrow(harrow to,int stN, int enN){
     tmp->sNo = stN;
     tmp->eNo = enN;
     to->use_m = cs+1;
-    
+    return -7;
     }
+    int cs = to->use_m;
+    arrowp tmp = to->mp + cs;
+    tmp->arrowNo = cs+1;
+    tmp->sNo = stN;
+    tmp->eNo = enN;
+    to->use_m = cs+1;
+    return -13;
 }

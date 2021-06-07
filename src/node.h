@@ -9,7 +9,9 @@ typedef struct{
     int* starWith;
     int* endWith;
     int s_length;
+    int s_length1;
     int e_length;
+    int e_length1;
     int isUsed;
 }node;
 typedef node* nodes;
@@ -29,8 +31,8 @@ p_node init_p_node (char* i_name,int i_no,p_node i_p);
 void ini_2_a(holo_node ty);
 nodes inti_nodes(int amount);
 void free_nodes(nodes tobefree,int amount);
-void eAdd(int no,p_node gp);
-void sAdd(int no,p_node gp);
+void eAdd(int no,p_node gp,int status);
+void sAdd(int no,p_node gp,int status);
 nodes expand_nodes_2x(nodes tbexpand,int amount);
 int returnNodeNo(char* name,holo_node from);
 

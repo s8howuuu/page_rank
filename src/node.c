@@ -11,9 +11,9 @@ p_node init_p_node (char* i_name,int i_no,p_node i_p){
     return i_p;
 }
 void ini_2_a(holo_node ty){
-    int a1 = ty->use_m;
+    int a1 = ty->allc_m;
     //int a2 = 0;
-    for (int i=0;i<a1;i++) {
+    for (int i=0;i<ty->use_m;i++) {
     node* tmp = (ty->nf+i);
     tmp->endWith = malloc(sizeof(int)*a1);
     tmp->starWith = malloc(sizeof(int)*a1);
@@ -31,7 +31,9 @@ nodes inti_nodes(int amount){
         ntmp->endWith = NULL;
         ntmp->starWith = NULL;
         ntmp->e_length = 0;
+        ntmp->e_length1 = 0;
         ntmp->s_length = 0;
+        ntmp->s_length1 = 0;
         ntmp->isUsed = 113;
     }
     return tmp;
@@ -56,13 +58,27 @@ void free_nodes(nodes tobefree,int amount){
     //printf("a3 is %d+\n",a3);
     free(tobefree);
 } 
-void eAdd(int no,p_node gp){
-   *(gp->endWith + gp->e_length) = no;
+void eAdd(int no,p_node gp,int status){
+   *(gp->endWith + gp->e_length1) = no;
+   //printf("*(gp->endWith + gp->e_length) = no___%d____name is %s;\n",no,gp->name);
+   //gp->e_length = gp->e_length +1;
+   if(status == 1){
    gp->e_length = gp->e_length +1;
+   gp->e_length1 = gp->e_length1 +1;
+   }else{
+       gp->e_length1 = gp->e_length1 +1;
+   }
 }
-void sAdd(int no,p_node gp){
-   *(gp->starWith + gp->s_length) = no;
+void sAdd(int no,p_node gp,int status){
+   *(gp->starWith + gp->s_length1) = no;
+   //printf("*(gp->starWith + gp->s_length) = no___%d____name is %s;\n",no,gp->name);
+   //gp->s_length = gp->s_length +1;
+   if(status == 1){
    gp->s_length = gp->s_length +1;
+   gp->s_length1 = gp->s_length1 +1;
+   }else{
+       gp->s_length1 = gp->s_length1 +1;
+   }
 }
 nodes expand_nodes_2x(nodes tbexpand,int amount){
    nodes re =  inti_nodes(2*amount);
@@ -73,12 +89,12 @@ nodes expand_nodes_2x(nodes tbexpand,int amount){
 holo_node initi_h_node(int amount,char* name){
     holo_node re = malloc(sizeof(tn));
     re->nf = inti_nodes(amount);
-    printf("re->nf allocated amount = %d \n",amount);
+    //printf("re->nf allocated amount = %d \n",amount);
     re->use_m = 0;
     re->allc_m = amount;
     re->name = malloc(sizeof(char)*512);
     memcpy(re->name, name, 512);
-    printf("%s is name of holo_node\n",re->name);
+    //printf("%s is name of holo_node\n",re->name);
     return re; 
 }
 void free_h_node(holo_node tbfree){
