@@ -20,6 +20,8 @@ int main(int argc, char *const *argv) {
   // mark 1
   
   rand_init();
+  unsigned int a = randu(255);
+  a = a+1;
   /*
   printf("You gave %d command line arguments%c\n",
       argc-1, argc==1 ? '.' : ':');
@@ -157,6 +159,7 @@ int main(int argc, char *const *argv) {
   }
 
    if(goStimulation == -5){
+     s_b = s_b*10;
      if(hl->use_m != 0){
     int* stimulation_controll = malloc(sizeof(int)* hl->use_m);
     for(int i=0;i<hl->use_m;i++){
