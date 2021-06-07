@@ -181,7 +181,7 @@ int main(int argc, char *const *argv) {
           a_p = get_i_p_node(tmp_n+1, hl);
           *(stimulation_controll+tmp_n) = *(stimulation_controll+tmp_n) + 1;
         }else{
-          tmp_n = (int) randu(a_p->e_length);
+          tmp_n = (int) randu(a_p->e_length1);
           tmp2 = *(a_p->endWith + tmp_n);
           a_p = get_i_p_node(tmp2, hl);
           tmp_n = a_p->no -1;
