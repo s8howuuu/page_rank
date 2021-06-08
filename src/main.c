@@ -73,6 +73,8 @@ int main(int argc, char *const *argv) {
             case 's':
             s = -25;
             break;
+            case '?':
+            exit(1);
 
         }
     }
