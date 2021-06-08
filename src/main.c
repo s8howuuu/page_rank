@@ -40,8 +40,8 @@ int main(int argc, char *const *argv) {
   int goStimulation = -10;//on -5 off -10
   char* fname = "/home/prog2/Test/Encrytpted/tests/graphs/simple.dot";
   double psb = 0.1;
-  int times = 200000;
-  int s_b = 9000000;
+  int times = 200;
+  int s_b = 900;
   int opt;
   int h = -19;//on-21 off -19
   int rcarg = 0;
@@ -161,7 +161,6 @@ int main(int argc, char *const *argv) {
   }
 
    if(goStimulation == -5){
-     s_b = s_b*10;
      if(hl->use_m != 0){
     int* stimulation_controll = malloc(sizeof(int)* hl->use_m);
     for(int i=0;i<hl->use_m;i++){
