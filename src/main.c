@@ -66,7 +66,6 @@ int main(int argc, char *const *argv) {
             break;
             case 'r':
             goStimulation = -5;
-            goMakov = -5;
             nc3 = optarg;
             //printf("%s is s_b",optarg);
             s_b = atoi(nc3);
@@ -159,7 +158,7 @@ int main(int argc, char *const *argv) {
   }
   }
 
-   if(goStimulation == -11){
+   if(goStimulation == -5){
      s_b = s_b*10;
      if(hl->use_m != 0){
     int* stimulation_controll = malloc(sizeof(int)* hl->use_m);
