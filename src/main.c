@@ -66,6 +66,7 @@ int main(int argc, char *const *argv) {
             break;
             case 'r':
             goStimulation = -5;
+            goMakov = -5;
             nc3 = optarg;
             //printf("%s is s_b",optarg);
             s_b = atoi(nc3);
@@ -92,7 +93,7 @@ int main(int argc, char *const *argv) {
   //fname = "../tests/graphs/simple.dot";
   FILE* pf = fopen(fname, "r");
   if(pf == NULL){
-    printf("exit 1\n");
+    //printf("exit 1\n");
     exit(1);
   }
   holo_node hl = findNodesFF(pf);
@@ -158,7 +159,7 @@ int main(int argc, char *const *argv) {
   }
   }
 
-   if(goStimulation == -5){
+   if(goStimulation == -11){
      s_b = s_b*10;
      if(hl->use_m != 0){
     int* stimulation_controll = malloc(sizeof(int)* hl->use_m);
@@ -168,11 +169,10 @@ int main(int argc, char *const *argv) {
     
       int first_n = (int)randu(hl->use_m);
       p_node a_p = get_i_p_node(first_n+1, hl);
-      *(stimulation_controll+first_n) = *(stimulation_controll+first_n) + 1;
       double p = reDoublely();
       int tmp_n = 0;
       int tmp2 = 0;
-      for(int i=0;i<s_b-1;i++){
+      for(int i=0;i<s_b;i++){
         int out = a_p->e_length;
         if(out == 0){
           tmp_n = (int)randu(hl->use_m);

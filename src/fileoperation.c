@@ -7,7 +7,7 @@
 
 holo_node findNodesFF(FILE *pf){
     if(pf ==NULL){
-        printf("exit 2\n");
+        //printf("exit 2\n");
         exit(1);
     }
     char* buff = malloc(sizeof(char)*1024);
@@ -16,14 +16,14 @@ holo_node findNodesFF(FILE *pf){
     if(t==NULL){
         fclose(pf);
         free(buff);
-        printf("exit 3\n");
+        //printf("exit 3\n");
         exit(1);
     }
     int status = strncmp(buff, "digraph ",8);
     if(status!=0){
         fclose(pf);
         free(buff);
-        printf("exit 4\n");
+        //printf("exit 4\n");
         exit(1);
     }
     //find the last index of  char list buff and  saved in i;
@@ -38,7 +38,7 @@ holo_node findNodesFF(FILE *pf){
     if(tc!='{'){
         fclose(pf);
         free(buff);
-        printf("exit 5\n");
+        //printf("exit 5\n");
         exit(1);
     }
     tmp_i = tmp_i -1;
@@ -46,7 +46,7 @@ holo_node findNodesFF(FILE *pf){
         if(tc!=' '){
         fclose(pf);
         free(buff);
-        printf("exit 6\n");
+        //printf("exit 6\n");
         exit(1);
     }
     // to the first Character of Name +8
@@ -63,7 +63,7 @@ holo_node findNodesFF(FILE *pf){
     if(a!='}'){
         fclose(pf);
         free(buff);
-        printf("exit 7\n");
+        //printf("exit 7\n");
         exit(1);
     }
     //return to the start point of file pf
@@ -109,7 +109,7 @@ holo_node findNodesFF(FILE *pf){
             fclose(pf);
             free_h_node(qj);
             free(buff);
-            printf("exit 8\n");
+            //printf("exit 8\n");
             exit(1);
         
         }
