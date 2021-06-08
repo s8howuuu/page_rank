@@ -20,8 +20,8 @@ int main(int argc, char *const *argv) {
   // mark 1
   
   rand_init();
-  unsigned int a = randu(255);
-  a = a+1;
+  unsigned int arr = randu(255);
+  arr = arr+1;
   /*
   printf("You gave %d command line arguments%c\n",
       argc-1, argc==1 ? '.' : ':');
@@ -38,7 +38,7 @@ int main(int argc, char *const *argv) {
   char* nc3 = NULL;
   int goMakov = -10;//on -5 off -10
   int goStimulation = -10;//on -5 off -10
-  char* fname = "/home/prog2/Encrytpted/tests/graphs/simple.dot";
+  char* fname = "/home/prog2/Test/Encrytpted/tests/graphs/simple.dot";
   double psb = 0.1;
   int times = 200000;
   int s_b = 9000000;
